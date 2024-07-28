@@ -8,17 +8,20 @@
 import SwiftUI
 
 struct ContentView: View {
+    @EnvironmentObject var viewModel: ViewModel
+    @State var text: String = ""
+    @State var result: String = ""
+    
     var body: some View {
         VStack {
-            Image(systemName: "globe")
-                .imageScale(.large)
-                .foregroundStyle(.tint)
-            Text("Hello, world!")
+            TextField("money imput", text: $text)
         }
+        Button(action: {
+            result = viewModel.caluclation(money: text)
+        }, label: {
+            /*@START_MENU_TOKEN@*/Text("Button")/*@END_MENU_TOKEN@*/
+        })
+        Text("\(result)")
         .padding()
     }
-}
-
-#Preview {
-    ContentView()
 }

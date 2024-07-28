@@ -9,28 +9,53 @@ import XCTest
 @testable import TestConverted
 
 final class TestConvertedTests: XCTestCase {
-
+    private var sut: Converters!
+    private let lower = "お金がありません"
+    private let nomal = "適切です"
+    private let apper = "たくさんあります"
+    private let others = "数値を入力してください"
+    
     override func setUpWithError() throws {
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        sut = Converters()
     }
-
+    
     override func tearDownWithError() throws {
-        // Put teardown code here. This method is called after the invocation of each test method in the class.
+        sut = nil
     }
-
-    func testExample() throws {
-        // This is an example of a functional test case.
-        // Use XCTAssert and related functions to verify your tests produce the correct results.
-        // Any test you write for XCTest can be annotated as throws and async.
-        // Mark your test throws to produce an unexpected failure when your test encounters an uncaught error.
-        // Mark your test async to allow awaiting for asynchronous code to complete. Check the results with assertions afterwards.
+    
+    func test_caluclationo_boundaryValueImput0() {
+        let actual = sut.convertMoney(money: "0")
+        let expected = lower
+        XCTAssertEqual(actual, expected)
     }
-
-    func testPerformanceExample() throws {
-        // This is an example of a performance test case.
-        self.measure {
-            // Put the code you want to measure the time of here.
+    
+    func test_caluclationo_boundaryValueImput1() {
+        let actual = sut.convertMoney(money: "1")
+        let expected = nomal
+        XCTAssertEqual(actual, expected)
+    }
+    
+    func test_caluclationo_boundaryValueImput100() {
+        let actual = sut.convertMoney(money: "100")
+        let expected = nomal
+        XCTAssertEqual(actual, expected)
+    }
+    
+    func test_caluclationo_boundaryValueImput101() {
+        let actual = sut.convertMoney(money: "101")
+        let expected = apper
+        XCTAssertEqual(actual, expected)
+    }
+    
+    func test_caluclationo_boundaryValueImputString() {
+        let actual = [
+            (value: "abc", expected: others),
+            (value: "ABC", expected: others),
+            (value: "&$%", expected: others),
+        ]
+        actual.forEach() { value, expected in
+            let result = sut.convertMoney(money: value)
+            XCTAssertEqual(result, expected)
         }
     }
-
 }
