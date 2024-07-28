@@ -12,7 +12,7 @@ final class TestConvertedTests: XCTestCase {
     private var sut: Converters!
     private let lower = "お金がありません"
     private let nomal = "適切です"
-    private let apper = "たくさんあります"
+    private let upper = "たくさんあります"
     private let others = "数値を入力してください"
     
     override func setUpWithError() throws {
@@ -23,38 +23,38 @@ final class TestConvertedTests: XCTestCase {
         sut = nil
     }
     
-    func test_convert_boundaryValueImput0() {
+    func test_convert_boundaryValueInput0() {
         let actual = sut.convertMoney(money: "0")
         let expected = lower
         XCTAssertEqual(actual, expected)
     }
     
-    func test_convert_boundaryValueImput1() {
+    func test_convert_boundaryValueInput1() {
         let actual = sut.convertMoney(money: "1")
         let expected = nomal
         XCTAssertEqual(actual, expected)
     }
     
-    func test_convert_boundaryValueImput100() {
+    func test_convert_boundaryValueInput100() {
         let actual = sut.convertMoney(money: "100")
         let expected = nomal
         XCTAssertEqual(actual, expected)
     }
     
-    func test_convert_boundaryValueImput101() {
+    func test_convert_boundaryValueInput101() {
         let actual = sut.convertMoney(money: "101")
-        let expected = apper
+        let expected = upper
         XCTAssertEqual(actual, expected)
     }
     
-    func test_convert_boundaryValueImputAllNumber() {
+    func test_convert_boundaryValueInputAllNumber() {
         let actual = [
             (value: "-1", expected: lower),
             (value: "0", expected: lower),
             (value: "1", expected: nomal),
             (value: "100", expected: nomal),
-            (value: "101", expected: apper),
-            (value: "1000000", expected: apper),
+            (value: "101", expected: upper),
+            (value: "1000000", expected: upper),
         ]
         
         actual.forEach() { value, expected in
@@ -63,7 +63,7 @@ final class TestConvertedTests: XCTestCase {
         }
     }
     
-    func test_convert_boundaryValueImputString() {
+    func test_convert_boundaryValueInputString() {
         let actual = [
             (value: "abc", expected: others),
             (value: "ABC", expected: others),

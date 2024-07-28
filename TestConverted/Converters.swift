@@ -10,7 +10,7 @@ import Foundation
 class Converters {
     private let lower = "お金がありません"
     private let nomal = "適切です"
-    private let apper = "たくさんあります"
+    private let upper = "たくさんあります"
     private let others = "数値を入力してください"
     
     func convertMoney(money: String) -> String {
@@ -24,7 +24,7 @@ class Converters {
         case 1..<101:
             return nomal
         case 101...:
-            return apper
+            return upper
         default:
             return others
         }
