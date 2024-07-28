@@ -23,36 +23,53 @@ final class TestConvertedTests: XCTestCase {
         sut = nil
     }
     
-    func test_caluclationo_boundaryValueImput0() {
+    func test_convert_boundaryValueImput0() {
         let actual = sut.convertMoney(money: "0")
         let expected = lower
         XCTAssertEqual(actual, expected)
     }
     
-    func test_caluclationo_boundaryValueImput1() {
+    func test_convert_boundaryValueImput1() {
         let actual = sut.convertMoney(money: "1")
         let expected = nomal
         XCTAssertEqual(actual, expected)
     }
     
-    func test_caluclationo_boundaryValueImput100() {
+    func test_convert_boundaryValueImput100() {
         let actual = sut.convertMoney(money: "100")
         let expected = nomal
         XCTAssertEqual(actual, expected)
     }
     
-    func test_caluclationo_boundaryValueImput101() {
+    func test_convert_boundaryValueImput101() {
         let actual = sut.convertMoney(money: "101")
         let expected = apper
         XCTAssertEqual(actual, expected)
     }
     
-    func test_caluclationo_boundaryValueImputString() {
+    func test_convert_boundaryValueImputAllNumber() {
+        let actual = [
+            (value: "-1", expected: lower),
+            (value: "0", expected: lower),
+            (value: "1", expected: nomal),
+            (value: "100", expected: nomal),
+            (value: "101", expected: apper),
+            (value: "1000000", expected: apper),
+        ]
+        
+        actual.forEach() { value, expected in
+            let result = sut.convertMoney(money: value)
+            XCTAssertEqual(result, expected)
+        }
+    }
+    
+    func test_convert_boundaryValueImputString() {
         let actual = [
             (value: "abc", expected: others),
             (value: "ABC", expected: others),
             (value: "&$%", expected: others),
         ]
+        
         actual.forEach() { value, expected in
             let result = sut.convertMoney(money: value)
             XCTAssertEqual(result, expected)
